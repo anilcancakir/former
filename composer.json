@@ -1,0 +1,49 @@
+{
+  "name": "anilcancakir/former",
+  "description": "The form generator plugin by validation.",
+  "keywords": ["laravel", "former", "form generator", "form wizard"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Anılcan ÇAKIR",
+      "email": "anilcan@kodizm.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "illuminate/console": "~5.1",
+    "illuminate/contracts": "~5.1",
+    "illuminate/support": "~5.1",
+    "psy/psysh": "0.7.*|0.8.*",
+    "symfony/var-dumper": "~3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0|~5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AnilcanCakir\\Former\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    },
+    "laravel": {
+      "providers": [
+        "AnilcanCakir\\Former\\FormerServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "suggest": {
+    "illuminate/database": "The Illuminate Database package (~5.1)."
+  }
+}
