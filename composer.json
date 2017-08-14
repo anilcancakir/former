@@ -10,15 +10,14 @@
     }
   ],
   "require": {
-    "php": ">=5.5.9",
-    "illuminate/console": "~5.1",
-    "illuminate/contracts": "~5.1",
-    "illuminate/support": "~5.1",
-    "psy/psysh": "0.7.*|0.8.*",
-    "symfony/var-dumper": "~3.0"
+    "php": ">=7.0",
+    "illuminate/support": "~5.5",
+    "symfony/console": "~3.2",
+    "symfony/process": "~3.2"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.0|~5.0"
+    "phpunit/phpunit": "^5.7",
+    "mockery/mockery": "^0.9.6"
   },
   "autoload": {
     "psr-4": {
@@ -27,7 +26,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/"
+      "AnilcanCakir\\Former\\Tests\\": "tests/"
     }
   },
   "extra": {
@@ -43,7 +42,6 @@
   "config": {
     "sort-packages": true
   },
-  "suggest": {
-    "illuminate/database": "The Illuminate Database package (~5.1)."
-  }
+  "prefer-stable": true,
+  "minimum-stability": "dev"
 }
