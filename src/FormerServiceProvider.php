@@ -18,8 +18,8 @@ class FormerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() {
-
+    public function register()
+    {
     }
 
     /**
@@ -27,7 +27,8 @@ class FormerServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides() {
+    public function provides()
+    {
         return [];
     }
 }
