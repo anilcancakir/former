@@ -7,28 +7,24 @@ use Illuminate\Support\ServiceProvider;
 class FormerServiceProvider extends ServiceProvider
 {
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
-    /**
      * Register the service provider.
      *
      * @return void
      */
     public function register()
     {
+        $this->configure();
     }
 
     /**
-     * Get the services provided by the provider.
+     * Setup the configuration for Former.
      *
-     * @return array
+     * @return void
      */
-    public function provides()
+    protected function configure()
     {
-        return [];
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/former.php', 'former'
+        );
     }
 }
