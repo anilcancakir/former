@@ -42,7 +42,8 @@ class FormFactory implements Factory
      * @param Translator $translator
      * @param Config $config
      */
-    public function __construct(View $view, Translator $translator, Config $config) {
+    public function __construct(View $view, Translator $translator, Config $config)
+    {
         $this->view = $view;
         $this->translator = $translator;
         $this->config = $config;
