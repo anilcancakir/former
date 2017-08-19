@@ -60,7 +60,11 @@ class FormFactory implements Factory
      */
     public function make(array $rules, Model $model = null, array $attributes = [], array $messages = [])
     {
-        // TODO: Implement make() method.
+        $form = new Form();
+
+        foreach ($rules as $name => $rule) {
+
+        }
     }
 
     /**
