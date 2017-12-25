@@ -1,29 +1,29 @@
 <?php
 
-namespace AnilcanCakir\Former\Contracts\Form;
+namespace AnilcanCakir\Former\Contracts;
 
 use AnilcanCakir\Former\Form;
 use Illuminate\Database\Eloquent\Model;
 
-interface Factory
+interface Former
 {
     /**
      * Make a form instance by using the rules.
      *
      * @param array $rules
      * @param Model|null $model
-     * @param array $attributes
-     * @param array $messages
+     * @param string|null $theme
      * @return Form
      */
-    public function make(array $rules, Model $model = null, array $attributes = [], array $messages = []);
+    public function make(array $rules, Model $model = null, $theme = null);
 
     /**
      * Make a form instance by using the form request.
      *
      * @param $formRequest
      * @param Model $model
+     * @param string|null $theme
      * @return Form
      */
-    public function makeFromRequest($formRequest, Model $model);
+    public function makeFromRequest($formRequest, Model $model, $theme = null);
 }

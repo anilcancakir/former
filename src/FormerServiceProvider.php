@@ -2,7 +2,8 @@
 
 namespace AnilcanCakir\Former;
 
-use AnilcanCakir\Former\Contracts\Form\Factory;
+use AnilcanCakir\Former\Contracts\Former as FormerContract;
+use AnilcanCakir\Former\Contracts\FormerHelper as FormerHelperContract;
 use Illuminate\Support\ServiceProvider;
 
 class FormerServiceProvider extends ServiceProvider
@@ -24,7 +25,7 @@ class FormerServiceProvider extends ServiceProvider
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'former');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'former');
     }
 
     /**
@@ -35,7 +36,14 @@ class FormerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->configure();
-        $this->registerFactories();
+
+        $this->app->singleton(FormerHelperContract::class, function ($app) {
+            return new FormerHelper($app['view'], $app['translator'], $app['config']);
+        });
+
+        $this->app->singleton(FormerContract::class, function ($app) {
+            return new Former($app[FormerHelperContract::class]);
+        });
     }
 
     /**
@@ -48,17 +56,5 @@ class FormerServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/former.php', 'former'
         );
-    }
-
-    /**
-     * Register the factories for Former.
-     *
-     * @return void
-     */
-    protected function registerFactories()
-    {
-        $this->app->singleton(Factory::class, function ($app) {
-            return new FormFactory($app['view'], $app['translator'], $app['config']);
-        });
     }
 }

@@ -10,10 +10,10 @@ return [
     | preferred the theme name. Former will be use this theme views when
     | generating form.
     |
-    | The default supporting themes is "bulma" and "bootstrap".
+    | The default supporting themes is "bootstrap" and "bulma".
     |
     */
-    'theme' => env('FORMER_THEME', 'bulma'),
+    'theme' => env('FORMER_THEME', 'bootstrap'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,5 +29,7 @@ return [
         \AnilcanCakir\Former\Fields\Input::class => [
             'string', 'number', 'email', 'url'
         ]
-    ]
+    ],
+
+    'default_field' => \AnilcanCakir\Former\Fields\Input::class,
 ];

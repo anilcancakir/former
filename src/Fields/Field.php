@@ -2,10 +2,17 @@
 
 namespace AnilcanCakir\Former\Fields;
 
-use Illuminate\Contracts\Translation\Translator;
+use AnilcanCakir\Former\Form;
 
 abstract class Field
 {
+    /**
+     * The form of field.
+     *
+     * @var Form
+     */
+    protected $form;
+
     /**
      * The name of field.
      *
@@ -14,41 +21,18 @@ abstract class Field
     protected $name;
 
     /**
-     * The label of field.
-     *
-     * @var
-     */
-    protected $label;
-
-    /**
-     * The type of field.
-     *
-     * @var string
-     */
-    protected $type = 'text';
-
-    /**
      * The template of field.
      *
      * @var string
      */
-    protected $template;
-    /**
-     * translator of Field
-     *
-     * @var Translator
-     */
-    private $translator;
+    protected $template = 'fields.input';
 
     /**
-     * Field constructor.
+     * The rules of field.
      *
-     * @param Translator $translator
+     * @var array
      */
-    public function __construct(Translator $translator)
-    {
-        $this->translator = $translator;
-    }
+    protected $rules;
 
     /**
      * Get the name of field.
@@ -58,28 +42,6 @@ abstract class Field
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * Get the label of field.
-     *
-     * @return string
-     */
-    public function getLabel(): string
-    {
-        if ($this->label) {
-            return $this->label;
-        }
-    }
-
-    /**
-     * Get the type of field.
-     *
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     /**
@@ -93,6 +55,36 @@ abstract class Field
     }
 
     /**
+     * Get the label of field.
+     *
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->form->getHelper()->getLabel($this->name);
+    }
+
+    /**
+     * Get the placeholder of field.
+     *
+     * @return null|string
+     */
+    public function getPlaceholder()
+    {
+        return $this->form->getHelper()->getPlaceholder($this->name);
+    }
+
+    /**
+     * Get the text of field.
+     *
+     * @return null|string
+     */
+    public function getText()
+    {
+        return $this->form->getHelper()->getText($this->name);
+    }
+
+    /**
      * Set the name of field.
      *
      * @param string $name
@@ -103,12 +95,22 @@ abstract class Field
     }
 
     /**
-     * Set the type of field.
+     * Set the rules of field.
      *
-     * @param string $type
+     * @param array $rules
      */
-    public function setType(string $type)
+    public function setRules(array $rules)
     {
-        $this->type = $type;
+        $this->rules = $rules;
+    }
+
+    /**
+     * Set the form of field.
+     *
+     * @param Form $form
+     */
+    public function setForm(Form $form)
+    {
+        $this->form = $form;
     }
 }
