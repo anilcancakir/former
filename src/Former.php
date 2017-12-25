@@ -2,13 +2,12 @@
 
 namespace AnilcanCakir\Former;
 
+use Illuminate\Database\Eloquent\Model;
 use AnilcanCakir\Former\Contracts\Former as Contract;
 use AnilcanCakir\Former\Contracts\FormerHelper as HelperContract;
-use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class FormFactory
- * @package AnilcanCakir\Former
+ * Class FormFactory.
  */
 class Former implements Contract
 {
