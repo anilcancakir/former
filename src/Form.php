@@ -2,11 +2,11 @@
 
 namespace AnilcanCakir\Former;
 
-use AnilcanCakir\Former\Contracts\FormerHelper;
-use AnilcanCakir\Former\Fields\Field;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
+use AnilcanCakir\Former\Fields\Field;
+use Illuminate\Database\Eloquent\Model;
+use AnilcanCakir\Former\Contracts\FormerHelper;
 
 class Form
 {
@@ -119,7 +119,7 @@ class Form
     {
         return new HtmlString(
             view($this->helper->getViewPath('form.start', $this->theme), [
-                'form' => $this
+                'form' => $this,
             ])
         );
     }
@@ -128,7 +128,7 @@ class Form
     {
         return new HtmlString(
             view($this->helper->getViewPath('form.start', $this->theme), [
-                'form' => $this
+                'form' => $this,
             ])
         );
     }
@@ -140,7 +140,7 @@ class Form
 
         return new HtmlString(
             view($this->helper->getViewPath($field->getTemplate(), $this->theme), [
-                'field' => $field
+                'field' => $field,
             ])
         );
     }

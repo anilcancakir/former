@@ -27,8 +27,8 @@ return [
     */
     'fields' => [
         \AnilcanCakir\Former\Fields\Input::class => [
-            'string', 'number', 'email', 'url'
-        ]
+            'string', 'number', 'email', 'url',
+        ],
     ],
 
     'default_field' => \AnilcanCakir\Former\Fields\Input::class,
