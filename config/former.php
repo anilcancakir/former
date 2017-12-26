@@ -27,7 +27,19 @@ return [
     */
     'fields' => [
         \AnilcanCakir\Former\Fields\Input::class => [
-            'string', 'number', 'email', 'url'
+            'string'
+        ],
+        \AnilcanCakir\Former\Fields\Inputs\EmailInput::class => [
+            'email'
+        ],
+        \AnilcanCakir\Former\Fields\Inputs\NumberInput::class => [
+            'number'
+        ],
+        \AnilcanCakir\Former\Fields\Inputs\UrlInput::class => [
+            'url'
+        ],
+        \AnilcanCakir\Former\Fields\Inputs\PasswordInput::class => [
+            'password'
         ]
     ],
 

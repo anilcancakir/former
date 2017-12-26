@@ -4,6 +4,7 @@ namespace AnilcanCakir\Former;
 
 use AnilcanCakir\Former\Contracts\FormerHelper as Contract;
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Contracts\Routing\UrlGenerator as Url;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\View\Factory as View;
 
@@ -24,11 +25,17 @@ class FormerHelper implements Contract
      */
     protected $config;
 
-    public function __construct(View $view, Translator $translator, Config $config)
+    /**
+     * @var Url
+     */
+    protected $url;
+
+    public function __construct(View $view, Translator $translator, Config $config, Url $url)
     {
         $this->view = $view;
         $this->translator = $translator;
         $this->config = $config;
+        $this->url = $url;
     }
 
     /**
@@ -79,6 +86,23 @@ class FormerHelper implements Contract
                 if (in_array($rule, $types)) {
                     return $input;
                 }
+            }
+        }
+
+        return $this->config('default_field');
+    }
+
+    /**
+     * Get field class from type.
+     *
+     * @param string $type
+     * @return string
+     */
+    public function getFieldClassFromType($type): string
+    {
+        foreach ($this->config('fields') as $input => $types) {
+            if (in_array($type, $types)) {
+                return $input;
             }
         }
 
@@ -143,5 +167,16 @@ class FormerHelper implements Contract
             return $trans;
         }
         return null;
+    }
+
+    /**
+     * Get url by route name.
+     *
+     * @param string $route
+     * @return string
+     */
+    public function getUrlByRoute($route): string
+    {
+        return $this->url->route($route);
     }
 }

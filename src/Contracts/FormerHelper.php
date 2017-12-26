@@ -30,6 +30,14 @@ interface FormerHelper
     public function getFieldClassFromRules(array $rules): string;
 
     /**
+     * Get field class from type.
+     *
+     * @param string $type
+     * @return string
+     */
+    public function getFieldClassFromType($type): string;
+
+    /**
      * Get given theme or default theme.
      *
      * @param null|string $theme
@@ -60,4 +68,12 @@ interface FormerHelper
      * @return string|null
      */
     public function getText($name);
+
+    /**
+     * Get url by route name.
+     *
+     * @param string $route
+     * @return string
+     */
+    public function getUrlByRoute($route): string;
 }

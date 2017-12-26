@@ -13,7 +13,7 @@ class Form
     /**
      * The form fields.
      *
-     * @var Collection
+     * @var Collection|Field[]
      */
     protected $fields;
 
@@ -37,6 +37,20 @@ class Form
      * @var FormerHelper
      */
     protected $helper;
+
+    /**
+     * The action of form.
+     *
+     * @var string
+     */
+    protected $action;
+
+    /**
+     * The method of form.
+     *
+     * @var string
+     */
+    protected $method = 'POST';
 
     /**
      * Form constructor.
@@ -96,6 +110,22 @@ class Form
     }
 
     /**
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return $this->action;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMethod(): string
+    {
+        return $this->method;
+    }
+
+    /**
      * Set the form model.
      *
      * @param Model $model
@@ -113,6 +143,21 @@ class Form
     public function setTheme($theme)
     {
         $this->theme = $theme;
+    }
+
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
+
+    public function setActionFromRoute($route)
+    {
+        $this->action = $this->helper->getUrlByRoute($route);
+    }
+
+    public function setMethod($method)
+    {
+        $this->method = $method;
     }
 
     public function start()
@@ -143,5 +188,18 @@ class Form
                 'field' => $field
             ])
         );
+    }
+
+    public function fields()
+    {
+        $html = '';
+
+        foreach ($this->fields as $field) {
+            $html .= view($this->helper->getViewPath($field->getTemplate(), $this->theme), [
+                'field' => $field
+            ]);
+        }
+
+        return new HtmlString($html);
     }
 }

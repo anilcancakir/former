@@ -38,7 +38,7 @@ class FormerServiceProvider extends ServiceProvider
         $this->configure();
 
         $this->app->singleton(FormerHelperContract::class, function ($app) {
-            return new FormerHelper($app['view'], $app['translator'], $app['config']);
+            return new FormerHelper($app['view'], $app['translator'], $app['config'], $app['url']);
         });
 
         $this->app->singleton(FormerContract::class, function ($app) {

@@ -9,8 +9,10 @@ $text = $field->getText();
     <input
             name="{{ $field->getName() }}"
             id="input{{ $field->getName() }}"
-            type="text" class="form-control"
+            type="{{ $field->getType() }}"
+            class="form-control"
             {!! $placeholder ? 'placeholder="' . htmlspecialchars($placeholder) . '"' : '' !!}
+            {{ $field->attributes() }}
     />
 
     @if ($text)

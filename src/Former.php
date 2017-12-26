@@ -34,10 +34,11 @@ class Former implements Contract
      *
      * @param array $formRules
      * @param Model|null $model
+     * @param array $types
      * @param null $theme
      * @return Form
      */
-    public function make(array $formRules, Model $model = null, $theme = null)
+    public function make(array $formRules, Model $model = null, array $types = [], $theme = null)
     {
         $form = new Form(
             $model, $this->helper
@@ -53,7 +54,7 @@ class Former implements Contract
             }
 
             $form->addField(
-                $this->helper->getFieldClassFromRules($rules),
+                isset($types[$name]) ? $this->helper->getFieldClassFromType($types[$name]) : $this->helper->getFieldClassFromRules($rules),
                 $name,
                 $rules
             );

@@ -3,6 +3,7 @@
 namespace AnilcanCakir\Former\Fields;
 
 use AnilcanCakir\Former\Form;
+use Illuminate\Support\HtmlString;
 
 abstract class Field
 {
@@ -33,6 +34,13 @@ abstract class Field
      * @var array
      */
     protected $rules;
+
+    /**
+     * The map of rules.
+     *
+     * @var array
+     */
+    protected $ruleMap = [];
 
     /**
      * Get the name of field.
@@ -112,5 +120,41 @@ abstract class Field
     public function setForm(Form $form)
     {
         $this->form = $form;
+    }
+
+    public function attributes()
+    {
+        $html = '';
+
+        $ruleMap = $this->ruleMap;
+
+        // If "required" is not exists, add it for default.
+        if (!isset($ruleMap['required'])) {
+            $ruleMap['required'] = 'required';
+        }
+
+        foreach ($this->ruleMap as $rule => $map)
+        {
+            // If the html rule is a boolean attribute, add this.
+            if (is_string($map)) {
+                if (in_array($rule, $this->rules)) {
+                    $html .= " {$map}";
+                }
+            } else {
+                // If the html rule has a variable, get it and use.
+                list($mapAttribute, $index) = $map;
+
+                foreach ($this->rules as $fieldRule) {
+                    if (preg_match("/^{$rule}\:/", $fieldRule)) {
+                        $explode = explode(':', $fieldRule);
+
+                        $html .= " {$mapAttribute}=\"{$explode[$index]}\"";
+                        break;
+                    }
+                }
+            }
+        }
+
+        return new HtmlString($html);
     }
 }

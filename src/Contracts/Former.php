@@ -12,10 +12,11 @@ interface Former
      *
      * @param array $rules
      * @param Model|null $model
+     * @param array $types
      * @param string|null $theme
      * @return Form
      */
-    public function make(array $rules, Model $model = null, $theme = null);
+    public function make(array $rules, Model $model = null, array $types = [], $theme = null);
 
     /**
      * Make a form instance by using the form request.
