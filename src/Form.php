@@ -196,7 +196,7 @@ class Form
 
         foreach ($this->fields as $field) {
             $html .= view($this->helper->getViewPath($field->getTemplate(), $this->theme), [
-                'field' => $field
+                'field' => $field,
             ]);
         }
 

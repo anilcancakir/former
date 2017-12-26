@@ -129,12 +129,11 @@ abstract class Field
         $ruleMap = $this->ruleMap;
 
         // If "required" is not exists, add it for default.
-        if (!isset($ruleMap['required'])) {
+        if (! isset($ruleMap['required'])) {
             $ruleMap['required'] = 'required';
         }
 
-        foreach ($this->ruleMap as $rule => $map)
-        {
+        foreach ($this->ruleMap as $rule => $map) {
             // If the html rule is a boolean attribute, add this.
             if (is_string($map)) {
                 if (in_array($rule, $this->rules)) {

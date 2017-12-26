@@ -2,11 +2,11 @@
 
 namespace AnilcanCakir\Former;
 
-use AnilcanCakir\Former\Contracts\FormerHelper as Contract;
+use Illuminate\Contracts\View\Factory as View;
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Contracts\Routing\UrlGenerator as Url;
-use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Contracts\View\Factory as View;
+use AnilcanCakir\Former\Contracts\FormerHelper as Contract;
 
 class FormerHelper implements Contract
 {
