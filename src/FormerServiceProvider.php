@@ -2,9 +2,9 @@
 
 namespace AnilcanCakir\Former;
 
+use Illuminate\Support\ServiceProvider;
 use AnilcanCakir\Former\Contracts\Former as FormerContract;
 use AnilcanCakir\Former\Contracts\FormerHelper as FormerHelperContract;
-use Illuminate\Support\ServiceProvider;
 
 class FormerServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,7 @@ class FormerServiceProvider extends ServiceProvider
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'former');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'former');
     }
 
     /**

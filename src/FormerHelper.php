@@ -79,10 +79,8 @@ class FormerHelper implements Contract
      */
     public function getFieldClassFromRules(array $rules): string
     {
-        foreach ($this->config('fields') as $input => $types)
-        {
-            foreach ($rules as $rule)
-            {
+        foreach ($this->config('fields') as $input => $types) {
+            foreach ($rules as $rule) {
                 if (in_array($rule, $types)) {
                     return $input;
                 }
@@ -148,8 +146,6 @@ class FormerHelper implements Contract
         if ($trans != $key) {
             return $trans;
         }
-
-        return null;
     }
 
     /**
@@ -166,7 +162,6 @@ class FormerHelper implements Contract
         if ($trans != $key) {
             return $trans;
         }
-        return null;
     }
 
     /**
