@@ -2,17 +2,17 @@
 
 namespace AnilcanCakir\Former\Tests;
 
-use AnilcanCakir\Former\Contracts\Former as FormerContract;
-use AnilcanCakir\Former\Contracts\FormerHelper as FormerHelperContract;
-use AnilcanCakir\Former\Former;
-use AnilcanCakir\Former\FormerHelper;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Contracts\View\Factory;
 use Mockery;
 use Mockery\MockInterface;
+use AnilcanCakir\Former\Former;
+use AnilcanCakir\Former\FormerHelper;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Illuminate\Contracts\Translation\Translator;
+use AnilcanCakir\Former\Contracts\Former as FormerContract;
+use AnilcanCakir\Former\Contracts\FormerHelper as FormerHelperContract;
 
 class TestCase extends BaseTestCase
 {
@@ -65,7 +65,7 @@ class TestCase extends BaseTestCase
      */
     protected function view()
     {
-        if (!$this->view) {
+        if (! $this->view) {
             $this->view = Mockery::mock(Factory::class);
         }
 
@@ -79,13 +79,12 @@ class TestCase extends BaseTestCase
      */
     protected function translator()
     {
-        if (!$this->translator) {
+        if (! $this->translator) {
             $this->translator = Mockery::mock(Translator::class);
         }
 
         return $this->translator;
     }
-
 
     /**
      * Get the config mocked instance.
@@ -94,7 +93,7 @@ class TestCase extends BaseTestCase
      */
     protected function config()
     {
-        if (!$this->config) {
+        if (! $this->config) {
             $this->config = Mockery::mock(Repository::class);
         }
 
@@ -108,7 +107,7 @@ class TestCase extends BaseTestCase
      */
     protected function url()
     {
-        if (!$this->url) {
+        if (! $this->url) {
             $this->url = Mockery::mock(UrlGenerator::class);
         }
 
@@ -122,7 +121,7 @@ class TestCase extends BaseTestCase
      */
     protected function formerHelper()
     {
-        if (!$this->formerHelper) {
+        if (! $this->formerHelper) {
             $this->formerHelper = new FormerHelper(
                 $this->view(), $this->translator(), $this->config(), $this->url()
             );
@@ -138,7 +137,7 @@ class TestCase extends BaseTestCase
      */
     protected function former()
     {
-        if (!$this->former) {
+        if (! $this->former) {
             $this->former = new Former(
                 $this->formerHelper()
             );
