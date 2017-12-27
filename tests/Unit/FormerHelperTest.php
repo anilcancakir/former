@@ -7,7 +7,7 @@ use AnilcanCakir\Former\Tests\TestCase;
 class FormerHelperTest extends TestCase
 {
     /** @test */
-    public function testConfigMethodShouldGetConfigValue()
+    public function testConfigMethodShouldReturnConfigValue()
     {
         $this->config()->shouldReceive('get')->andReturn('value');
 
@@ -15,7 +15,7 @@ class FormerHelperTest extends TestCase
     }
 
     /** @test */
-    public function testGetThemeMethodShouldGetDefaultTheme()
+    public function testGetThemeMethodShouldReturnDefaultThemeWhenNotGiven()
     {
         $this->config()->shouldReceive('get')->andReturn('sample');
 
@@ -23,7 +23,7 @@ class FormerHelperTest extends TestCase
     }
 
     /** @test */
-    public function testGetThemeMethodShouldGetGivenTheme()
+    public function testGetThemeMethodShouldReturnGivenTheme()
     {
         $this->assertSame('foo', $this->formerHelper()->getThemeOrDefault('foo'));
     }
@@ -35,5 +35,21 @@ class FormerHelperTest extends TestCase
         $this->view()->shouldReceive('exists')->andReturn(true);
 
         $this->assertSame('former.my_theme.sample', $this->formerHelper()->getViewPath('sample'));
+    }
+
+    /** @test */
+    public function testTransMethodShouldReturnTranslationWhenAvailable()
+    {
+        $this->translator()->shouldReceive('trans')->andReturn('sample');
+
+        $this->assertSame('sample', $this->formerHelper()->trans('foo'));
+    }
+
+    /** @test */
+    public function testTransMethodShouldReturnNullWhenNotAvailable()
+    {
+        $this->translator()->shouldReceive('trans')->andReturn('sample');
+
+        $this->assertNull($this->formerHelper()->trans('sample'));
     }
 }

@@ -43,6 +43,15 @@ abstract class Field
     protected $ruleMap = [];
 
     /**
+     * The default map of rules.
+     *
+     * @var array
+     */
+    protected $defaultRulesMap = [
+        'required' => 'required'
+    ];
+
+    /**
      * Get the name of field.
      *
      * @return string
@@ -69,7 +78,16 @@ abstract class Field
      */
     public function getLabel(): string
     {
-        return $this->form->getHelper()->getLabel($this->name);
+        // Check the "labels" first.
+        if ($trans = $this->form->getHelper()->trans("validation.labels.{$this->name}")) {
+            return $trans;
+        }
+
+        if ($trans = $this->form->getHelper()->trans("validation.attributes.{$this->name}")) {
+            return $trans;
+        }
+
+        return $this->name;
     }
 
     /**
@@ -79,7 +97,11 @@ abstract class Field
      */
     public function getPlaceholder()
     {
-        return $this->form->getHelper()->getPlaceholder($this->name);
+        if ($trans = $this->form->getHelper()->trans("validation.placeholders.{$this->name}")) {
+            return $trans;
+        }
+
+        return null;
     }
 
     /**
@@ -89,7 +111,11 @@ abstract class Field
      */
     public function getText()
     {
-        return $this->form->getHelper()->getText($this->name);
+        if ($trans = $this->form->getHelper()->trans("validation.texts.{$this->name}")) {
+            return $trans;
+        }
+
+        return null;
     }
 
     /**
@@ -122,38 +148,75 @@ abstract class Field
         $this->form = $form;
     }
 
+    /**
+     * Get html of attributes.
+     *
+     * @return HtmlString
+     */
     public function attributes()
     {
         $html = '';
 
-        $ruleMap = $this->ruleMap;
-
-        // If "required" is not exists, add it for default.
-        if (! isset($ruleMap['required'])) {
-            $ruleMap['required'] = 'required';
-        }
-
-        foreach ($this->ruleMap as $rule => $map) {
+        foreach ($this->getRuleMaps() as $rule => $map) {
             // If the html rule is a boolean attribute, add this.
             if (is_string($map)) {
-                if (in_array($rule, $this->rules)) {
-                    $html .= " {$map}";
-                }
+                $html .= $this->getHtmlOfBooleanAttribute($map, $rule);
             } else {
                 // If the html rule has a variable, get it and use.
-                list($mapAttribute, $index) = $map;
-
-                foreach ($this->rules as $fieldRule) {
-                    if (preg_match("/^{$rule}\:/", $fieldRule)) {
-                        $explode = explode(':', $fieldRule);
-
-                        $html .= " {$mapAttribute}=\"{$explode[$index]}\"";
-                        break;
-                    }
-                }
+                $html .= $this->getHtmlOfAttribute($map, $rule);
             }
         }
 
         return new HtmlString($html);
+    }
+
+    /**
+     * Get default and field rule maps.
+     *
+     * @return array
+     */
+    protected function getRuleMaps()
+    {
+        return array_merge(
+            $this->defaultRulesMap, $this->ruleMap
+        );
+    }
+
+    /**
+     * Get html of boolean attribute.
+     *
+     * @param string $map
+     * @param string $rule
+     * @return string
+     */
+    protected function getHtmlOfBooleanAttribute($map, $rule): string
+    {
+        if (in_array($rule, $this->rules)) {
+            return " {$map}";
+        }
+
+        return '';
+    }
+
+    /**
+     * Get html of attribute.
+     *
+     * @param array $map
+     * @param string $rule
+     * @return string
+     */
+    protected function getHtmlOfAttribute($map, $rule): string
+    {
+        list($mapAttribute, $index) = $map;
+
+        foreach ($this->rules as $fieldRule) {
+            if (preg_match("/^{$rule}\:/", $fieldRule)) {
+                $explode = explode(':', $fieldRule);
+
+                return " {$mapAttribute}=\"{$explode[$index]}\"";
+            }
+        }
+
+        return '';
     }
 }

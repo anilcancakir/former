@@ -46,34 +46,18 @@ interface FormerHelper
     public function getThemeOrDefault($theme = null): string;
 
     /**
-     * Get the label of field by name.
-     *
-     * @param string $name
-     * @return string
-     */
-    public function getLabel($name): string;
-
-    /**
-     * Get the placeholder of field by name.
-     *
-     * @param string $name
-     * @return string|null
-     */
-    public function getPlaceholder($name);
-
-    /**
-     * Get the text of field by name.
-     *
-     * @param string $name
-     * @return string|null
-     */
-    public function getText($name);
-
-    /**
      * Get url by route name.
      *
      * @param string $route
      * @return string
      */
     public function getUrlByRoute($route): string;
+
+    /**
+     * Translate a given key.
+     *
+     * @param string $key
+     * @return mixed|null
+     */
+    public function trans($key);
 }

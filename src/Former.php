@@ -2,9 +2,9 @@
 
 namespace AnilcanCakir\Former;
 
-use Illuminate\Database\Eloquent\Model;
 use AnilcanCakir\Former\Contracts\Former as Contract;
 use AnilcanCakir\Former\Contracts\FormerHelper as HelperContract;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class FormFactory.
@@ -34,18 +34,13 @@ class Former implements Contract
      * @param array $formRules
      * @param Model|null $model
      * @param array $types
-     * @param null $theme
      * @return Form
      */
-    public function make(array $formRules, Model $model = null, array $types = [], $theme = null)
+    public function make(array $formRules, Model $model = null, array $types = [])
     {
         $form = new Form(
             $model, $this->helper
         );
-
-        if ($theme) {
-            $form->setTheme($theme);
-        }
 
         foreach ($formRules as $name => $rules) {
             if (is_string($rules)) {
@@ -53,7 +48,7 @@ class Former implements Contract
             }
 
             $form->addField(
-                isset($types[$name]) ? $this->helper->getFieldClassFromType($types[$name]) : $this->helper->getFieldClassFromRules($rules),
+                $this->getInputByRulesAndTypes($name, $rules, $types),
                 $name,
                 $rules
             );
@@ -62,16 +57,36 @@ class Former implements Contract
         return $form;
     }
 
+
     /**
      * Make a form instance by using the form request.
      *
      * @param $formRequest
      * @param Model $model
-     * @param string|null $theme
-     * @return void
+     * @param array $types
+     * @return Form
      */
-    public function makeFromRequest($formRequest, Model $model, $theme = null)
+    public function makeFromRequest($formRequest, Model $model, array $types = [])
     {
         // TODO: Implement makeFromRequest() method.
+
+        return null;
+    }
+
+    /**
+     * Get input class by rules and types for a field.
+     *
+     * @param string $name
+     * @param string[] $rules
+     * @param string[] $types
+     * @return string
+     */
+    protected function getInputByRulesAndTypes($name, $rules, $types)
+    {
+        if (isset($types[$name])) {
+            return $this->helper->getFieldClassFromType($types[$name]);
+        }
+
+        return $this->helper->getFieldClassFromRules($rules);
     }
 }

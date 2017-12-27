@@ -2,11 +2,11 @@
 
 namespace AnilcanCakir\Former;
 
-use Illuminate\Contracts\View\Factory as View;
-use Illuminate\Contracts\Translation\Translator;
+use AnilcanCakir\Former\Contracts\FormerHelper as Contract;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Contracts\Routing\UrlGenerator as Url;
-use AnilcanCakir\Former\Contracts\FormerHelper as Contract;
+use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Contracts\View\Factory as View;
 
 class FormerHelper implements Contract
 {
@@ -119,52 +119,6 @@ class FormerHelper implements Contract
     }
 
     /**
-     * Get the label of field by name.
-     *
-     * @param string $name
-     * @return string
-     */
-    public function getLabel($name): string
-    {
-        $key = "validation.labels.{$name}";
-        $trans = $this->translator->trans($key);
-
-        return $trans == $key ? $this->translator->trans("validation.attributes.{$name}") : $trans;
-    }
-
-    /**
-     * Get the placeholder of field by name.
-     *
-     * @param string $name
-     * @return string|null
-     */
-    public function getPlaceholder($name)
-    {
-        $key = "validation.placeholders.{$name}";
-        $trans = $this->translator->trans($key);
-
-        if ($trans != $key) {
-            return $trans;
-        }
-    }
-
-    /**
-     * Get the text of field by name.
-     *
-     * @param string $name
-     * @return string|null
-     */
-    public function getText($name)
-    {
-        $key = "validation.texts.{$name}";
-        $trans = $this->translator->trans($key);
-
-        if ($trans != $key) {
-            return $trans;
-        }
-    }
-
-    /**
      * Get url by route name.
      *
      * @param string $route
@@ -173,5 +127,18 @@ class FormerHelper implements Contract
     public function getUrlByRoute($route): string
     {
         return $this->url->route($route);
+    }
+
+    /**
+     * Translate a given key.
+     *
+     * @param string $key
+     * @return mixed|null
+     */
+    public function trans($key)
+    {
+        $trans = $trans = $this->translator->trans($key);
+
+        return $trans != $key ? $trans : null;
     }
 }
